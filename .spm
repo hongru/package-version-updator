@@ -1,0 +1,174 @@
+spm v0.9.11
+
+BUILD CMD MODULE 
+usage: spm build [options]
+
+Options:
+  --only                     only execute current phrase plugin      
+  --global-config            use user custom config                  
+  --src                      set src directory                         [string]
+  --dist                     set dist directory                        [string]
+  --version                  set module version                        [string]
+  --so                       set module version                      
+  --source-files             set directory which need to compile.      [default: null]
+  --throwErrorOnDepNotFound  throw error when dependencies not found.  [boolean]  [default: false]
+  --with-debug               add debug file.                           [string]  [default: "debug"]
+  --verbose, -v              Show more verbose information.            [default: 2]
+  --encoding                 Set file encoding!                        [default: "utf8"]
+
+BUILD CMD MODULE 
+usage: spm build [options]BUILD MODULE 
+usage: spm build_old [options] module
+
+Options:
+  --only                     only execute current phrase plugin                           
+  --global-config            use user custom config                                       
+  --src                      set src directory                                              [string]
+  --dist                     set dist directory                                             [string]
+  --version                  set module version                                             [string]
+  --so                       set module version                                           
+  --source-files             set directory which need to compile.                           [default: null]
+  --throwErrorOnDepNotFound  throw error when dependencies not found.                       [boolean]  [default: false]
+  --with-debug               add debug file.                                                [string]  [default: "debug"]
+  --clear                    clear all built files                                        
+  --combine                  combine dependences to one file                              
+  --combine_all              combine dependences including base modules to one file       
+  ---app_url                 specify the root URL of app modules                          
+  --app_path                 specify the root directory of app modules                    
+  --base_path                specify the root directory of base modules                   
+  --out_path                 specify the root directory of built modules                  
+  --config                   specify the path of the loader config file                   
+  --loader_config            specify the path of the loader config file                   
+  --recursive, -r            recursively build all files in directories and subdirectories
+  --excludes                 exclude those modules whose paths match this regexp          
+  --compiler_options         the options passed to the internal compiler                  
+  --verbose, -v              Show more verbose information.                                 [default: 2]
+  --encoding                 Set file encoding!                                             [default: "utf8"]
+
+Options:
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+BUILD CMD MODULE 
+usage: spm build [options]DEPLOY CMD MODULE 
+usage: spm deploy [options]
+
+Options:
+  --only                     only execute current phrase plugin                           
+  --global-config            use user custom config                                       
+  --src                      set src directory                                              [string]
+  --dist                     set dist directory                                             [string]
+  --version                  set module version                                             [string]
+  --so                       set module version                                           
+  --source-files             set directory which need to compile.                           [default: null]
+  --throwErrorOnDepNotFound  throw error when dependencies not found.                       [boolean]  [default: false]
+  --with-debug               add debug file.                                                [string]  [default: "debug"]
+  --clear                    clear all built files                                        
+  --combine                  combine dependences to one file                              
+  --combine_all              combine dependences including base modules to one file       
+  ---app_url                 specify the root URL of app modules                          
+  --app_path                 specify the root directory of app modules                    
+  --base_path                specify the root directory of base modules                   
+  --out_path                 specify the root directory of built modules                  
+  --config                   specify the path of the loader config file                   
+  --loader_config            specify the path of the loader config file                   
+  --recursive, -r            recursively build all files in directories and subdirectories
+  --excludes                 exclude those modules whose paths match this regexp          
+  --compiler_options         the options passed to the internal compiler                  
+  --verbose, -v              Show more verbose information.                                 [default: 2]
+  --encoding                 Set file encoding!                                             [default: "utf8"]
+
+setup spm environment.
+usage: spm env [options]
+
+Options:
+  --clean        clean local source.           
+  --init         download default config.json. 
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+Options:
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+create a empty module.
+usage: spm init [options] 
+
+Options:
+  --root, -r     default root value              [default: "#"]
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+install a module.
+usage: spm install [options] name[@version]
+
+Options:
+  --force, -f    override existing files                        
+  --from         specify the path of modules repository         
+  --to           specify the path of modules in local filesystem
+  --verbose, -v  Show more verbose information.                   [default: 2]
+  --encoding     Set file encoding!                               [default: "utf8"]
+
+Options:
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+search module info.
+Usage: spm search [options]
+
+Options:
+  --root, -r     set module root.                [default: ""]
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+start source server. Usage: spm server [options]
+
+Options:
+  --port, -p     server port                     [default: "8000"]
+  --proxy        set proxy source.             
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+Options:
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+transport a module
+usage: spm transport [--force] transport.js
+
+Options:
+  --force, -f    override existing files       
+  --dev          get development version       
+  --verbose, -v  Show more verbose information.  [default: 2]
+  --encoding     Set file encoding!              [default: "utf8"]
+
+BUILD CMD MODULE 
+usage: spm build [options]upload a module to sources.
+usage: spm upload [options]
+
+Options:
+  --only                     only execute current phrase plugin                           
+  --global-config            use user custom config                                       
+  --src                      set src directory                                              [string]
+  --dist                     set dist directory                                             [string]
+  --version                  set module version                                             [string]
+  --so                       set module version                                           
+  --source-files             set directory which need to compile.                           [default: null]
+  --throwErrorOnDepNotFound  throw error when dependencies not found.                       [boolean]  [default: false]
+  --with-debug               add debug file.                                                [string]  [default: "debug"]
+  --clear                    clear all built files                                        
+  --combine                  combine dependences to one file                              
+  --combine_all              combine dependences including base modules to one file       
+  ---app_url                 specify the root URL of app modules                          
+  --app_path                 specify the root directory of app modules                    
+  --base_path                specify the root directory of base modules                   
+  --out_path                 specify the root directory of built modules                  
+  --config                   specify the path of the loader config file                   
+  --loader_config            specify the path of the loader config file                   
+  --recursive, -r            recursively build all files in directories and subdirectories
+  --excludes                 exclude those modules whose paths match this regexp          
+  --compiler_options         the options passed to the internal compiler                  
+  --verbose, -v              Show more verbose information.                                 [default: 2]
+  --encoding                 Set file encoding!                                             [default: "utf8"]
+
+

@@ -4,6 +4,7 @@
 var fs = require('fs'),
     util = require('util'),
     path = require('path'),
+    spmbatch = require('./spmbatch/src/spmbatch.js'),
     child_process = require('child_process'),
     spawn = child_process.spawn, 
 	exec = child_process.exec,
@@ -14,6 +15,7 @@ var VERSION = '0.0.1',
     PKG_CON,
     PWD = './',
     START_PKG,
+    SPMBATCH_CMD,
     AFFECTED_PKG_REG,
     NEW_VERSION;
     
@@ -232,6 +234,10 @@ function _begin() {
         util.error('ERROR: Can not find PROJECT ROOT with [.pvu]');
     }
     
+    // spmbatch
+    if (SPMBATCH_CMD) {
+        spmbatch([SPMBATCH_CMD, projRoot]);
+    }
     
     
 }
@@ -242,12 +248,21 @@ function main (args) {
     
     if (args && args instanceof Array){
         while (args.length > 0) {
-            var v = args.shift();
-            switch(v) {
+            var v = args.shift(); 
+            switch(v) { 
                 case '-v':
                 case '--version':
                     util.print('version ' + VERSION);
                     process.exit(0);
+                    break;
+                case '-b':
+                case '--build':
+                    SPMBATCH_CMD = 'build';
+                    break;
+                case '-u':
+                case '--upload':
+                    SPMBATCH_CMD = 'upload';
+                    break;
                 default:
                     PWD = v;
                     break;
