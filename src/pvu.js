@@ -9,7 +9,7 @@ var fs = require('fs'),
 	exec = child_process.exec,
     root_path = process.argv[1];
     
-var VERSION = '0.0.0',
+var VERSION = '0.0.1',
     ENCODE = 'utf8',
     PKG_CON,
     PWD = './',

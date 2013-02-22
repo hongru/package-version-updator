@@ -1,0 +1,3 @@
+[submodule "src/spmbatch"]
+	path = src/spmbatch
+	url = git@assets.m.etao.net:Mixteam/mixtools_spmbatch.git
