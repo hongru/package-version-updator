@@ -12,11 +12,14 @@ var fs = require('fs'),
     
 var VERSION = '0.0.1',
     ENCODE = 'utf8',
+    AUTO_UP_VER = false,
+    PVU_CONF,
     PKG_CON,
     PWD = './',
     START_PKG,
     SPMBATCH_CMD,
     AFFECTED_PKG_REG,
+    OLD_VERSION,
     NEW_VERSION;
     
 
@@ -45,6 +48,13 @@ function _getPackageJson() {
     }
 }
 
+// add version like '0.0.1' -> '0.0.2'
+function _addVersion(ver) {
+    var tmp = ver.split('.');
+    tmp[tmp.length-1] = (parseInt(tmp[tmp.length-1]) + 1);
+    return tmp.join('.');
+}
+
 function _findAffectedPkg() {
     var absP = path.resolve('./', PWD);
     util.print('pvu active in "'+ PWD +'"['+ absP +']\n\n');
@@ -64,8 +74,14 @@ function _findAffectedPkg() {
         util.error('invalid [package.json] file' + '\n' + e.message);
     }
     
-    NEW_VERSION = START_PKG.version;
-    util.print('DEBUG: Package['+START_PKG.name+'] had been updated to $version['+START_PKG.version+']\n');
+    //auto add version
+    if (AUTO_UP_VER) {
+        //todo
+        
+    } else {
+        NEW_VERSION = START_PKG.version;
+        util.print('DEBUG: Package['+START_PKG.name+'] had been updated to $version['+START_PKG.version+']\n');
+    }
     
     var outputKeys = Object.keys(START_PKG.output);
     var affectedPkgs = [], ret = [];
@@ -108,14 +124,12 @@ function batch(dir) {
 }
 
 function dealAffectedFiles(dir) {
-    //deal with [package.json, entry.js];
-    /* if (path.resolve(PWD) == path.resolve(dir)) {
-        return;
-    } */
-    
-    //deal package.json
-    _dealPackageJson(dir);
-    _dealEntryJs(dir);
+    //deal with files by PVU_CONF.chencklist [package.json, entry.js];
+    if (PVU_CONF && PVU_CONF.checklist) {
+        PVU_CONF.checklist.forEach(function (o, i) {
+            _dealFile(dir + '/' + o);    
+        });
+    }
 }
 
 function _dealPackageJson(dir) {
@@ -151,9 +165,8 @@ function _dealPackageJson(dir) {
         }
     }
 }
-function _dealEntryJs(dir) {
-    //entry.js 中就只能用正则强制匹配
-    var entryFile = dir + '/entry.js';
+
+function _dealFile(entryFile) {
     if (fs.existsSync(entryFile)) {
         var entryStr = fs.readFileSync(entryFile, ENCODE).toString(),
             _hasMatched = false;
@@ -210,26 +223,32 @@ function formatJson (val) {
 	return retval;
 }
 
-function _findProjRoot() {
+function _findPVU() {
     //by file .pvu;
-    var _start = PWD + '.pvu',
+    var _start = PWD,
         maxCnt = 10,
         _cnt = 0;
-    while(!fs.existsSync(_start) && _cnt < maxCnt) {
+        
+    while(!fs.existsSync(_start.replace(/\/$/, '') + '/.pvu') && _cnt < maxCnt) {
         _start = path.resolve(_start, '../');
         _cnt ++;
     }
     
-    return fs.existsSync(_start) ? path.dirname(_start) : null;
+    var pvuPath = _start.replace(/\/$/, '') + '/.pvu';
+    return fs.existsSync(pvuPath) ? {
+        projRoot: _start,
+        fileContent: fs.readFileSync(pvuPath, ENCODE).toString()
+    } : null;
 }
 
 function _begin() {
     AFFECTED_PKG_REG = _findAffectedPkg();
-    var projRoot = _findProjRoot();
+    var pvu = _findPVU();
     
-    if (projRoot) {
-        util.puts('DEBUG: ProjRoot [' + projRoot + ']');
-        batch(projRoot);
+    if (pvu) {
+        PVU_CONF = JSON.parse(pvu.fileContent);
+        util.puts('DEBUG: ProjRoot [' + pvu.projRoot + ']');
+        batch(pvu.projRoot);
     } else {
         util.error('ERROR: Can not find PROJECT ROOT with [.pvu]');
     }
@@ -264,7 +283,7 @@ function main (args) {
                     SPMBATCH_CMD = 'upload';
                     break;
                 default:
-                    PWD = v;
+                    PWD = v.replace(/\/$/, '') + '/';
                     break;
             }
         }
