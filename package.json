@@ -1,6 +1,6 @@
 {
   "name": "package-version-updator",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "seajs-package version updator ",
   "main": "./src/pvu.js",
   "bin": {
