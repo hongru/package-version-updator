@@ -7,6 +7,12 @@ Usage
 =====
 touch a blank file named '.pvu' at the root of your proj.
 <pre>
+{
+  "encode":"utf8",
+  "checklist":["package.json", "entry.js", "seajsConf.js"]
+}
+</pre>
+<pre>
 npm install -g package-version-updator
 pvu [module_dir]
 </pre>
