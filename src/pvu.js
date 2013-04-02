@@ -4,7 +4,7 @@
 var fs = require('fs'),
     util = require('util'),
     path = require('path'),
-    spmbatch = require('./spmbatch/src/spmbatch.js'),
+    spmbat = require('./spmbat/src/spmbat.js'),
     child_process = require('child_process'),
     spawn = child_process.spawn, 
 	exec = child_process.exec,
@@ -17,7 +17,6 @@ var VERSION = '0.0.1',
     PKG_CON,
     PWD = './',
     START_PKG,
-    SPMBATCH_CMD,
     AFFECTED_PKG_REG,
     OLD_VERSION,
     NEW_VERSION;
@@ -254,8 +253,8 @@ function _begin() {
     }
     
     // spmbatch
-    if (SPMBATCH_CMD) {
-        spmbatch([SPMBATCH_CMD, projRoot]);
+    if (PVU_CONF && PVU_CONF.autobuild) {
+        spmbat(pvu.projRoot);
     }
     
     
@@ -274,14 +273,7 @@ function main (args) {
                     util.print('version ' + VERSION);
                     process.exit(0);
                     break;
-                case '-b':
-                case '--build':
-                    SPMBATCH_CMD = 'build';
-                    break;
-                case '-u':
-                case '--upload':
-                    SPMBATCH_CMD = 'upload';
-                    break;
+
                 default:
                     PWD = v.replace(/\/$/, '') + '/';
                     break;
